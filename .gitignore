@@ -8,3 +8,6 @@ Assembly-CSharp.csproj
 Shooter2D.sln
 Shooter2D.sln.DotSettings.user
 riderModule.iml
+Shooter2D/Packages
+Shooter2D/Temp
+Shooter2D/.vs/Shooter2D/xs

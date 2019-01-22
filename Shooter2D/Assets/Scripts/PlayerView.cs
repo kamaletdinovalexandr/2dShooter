@@ -6,12 +6,13 @@ public class PlayerView : MonoBehaviour {
 
 	private PlayerPresenter _playerPresenter;
 
-	public PlayerView(PlayerPresenter presenter) {
+	public void Init(PlayerPresenter presenter) {
 		_playerPresenter = presenter;
-		
+		_playerPresenter.Model.PositionChanged += OnPositionChanged;
+
 	}
 
-	private void OnPositionChangerd(Vector2 position) {
+	private void OnPositionChanged(Vector2 position) {
 		transform.position = position;
 	}
 }

@@ -4,46 +4,18 @@ using UnityEngine;
 
 public class Controller : MonoBehaviour {
 
-	[SerializeField] private Rigidbody2D _playerView;
-	[SerializeField] private List<Rigidbody2D> _enemiesView;
-	[SerializeField] private GameObject _projectilePrefab;
-	private PlayerModel _playerModel;
-	private List<EnemyModel> _enemyModels;
-	private float _playerSpeed = 20f;
-	private float _playerJumpForce = 4f;
-	private float _projectileSpeed = 60f;
-	private bool _leftDirection = false;
+	[SerializeField] private PlayerView _playerView;
+	private PlayerPresenter _playerPresenter;
+	
+	private void Awake() {
+		var startPosition = _playerView.transform.position; 
+		_playerPresenter = new PlayerPresenter(startPosition, _playerView);
+	}
 
 	private void FixedUpdate() {
-		float moveHorizontal = Input.GetAxis ("Horizontal");
+		Vector2 direction = new Vector2 (Input.GetAxis ("Horizontal"), Input.GetAxis ("Vertical"));
+		_playerPresenter.MoveModel(direction);
 
-		if (moveHorizontal > 0f)
-			_leftDirection = false;
-		if (moveHorizontal < 0f)
-			_leftDirection = true;
-		
-		Vector2 movement = new Vector2 (moveHorizontal, 0f);
-		_playerView.AddForce (movement * _playerSpeed);
+	}
 	
-		if (Input.GetKeyDown((KeyCode.Space))) {
-			_playerView.AddForce(new Vector2(0f, _playerJumpForce), ForceMode2D.Impulse);
-		}
-
-		if (Input.GetKeyDown(KeyCode.LeftAlt)) {
-			var projectile = Instantiate(_projectilePrefab);
-			projectile.transform.position = _playerView.gameObject.transform.position;
-			
-			var velocity = new Vector2();
-			if (_leftDirection)
-				velocity.x = -1f;
-			else
-				velocity.x = 1f;
-			projectile.GetComponent<Rigidbody2D>().velocity = velocity * _projectileSpeed;
-		}
-	}
-
-	private void OnCollisionEnter2D(Collision2D other) {
-		if (other.gameObject.tag == "enemy")
-			Destroy(other.gameObject);
-	}
 }
