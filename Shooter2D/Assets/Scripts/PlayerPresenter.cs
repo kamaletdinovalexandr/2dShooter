@@ -6,7 +6,7 @@ public class PlayerPresenter {
     public PlayerView _playerView;
 
     public PlayerPresenter(Vector2 startPosition, PlayerView playerView) {
-        _playerModel = new PlayerModel(new Vector2(0, 0), 6, 20f );
+        _playerModel = new PlayerModel(startPosition, 1f, 20f );
         _playerView = playerView;
         _playerView.Init(this);
     }

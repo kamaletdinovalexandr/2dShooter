@@ -1,22 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System;
+﻿using System;
 using UnityEngine;
 
 public class PlayerModel {
 	public Vector2 Position { get; private set; }
-	public int Lives { get; private set; }
+	
+	public float Size { get; private set; }
 	public float MoveSpeed { get; private set; }
 	
-	
-	public Vector2 MoveDirection { get; set; }
-	
 	public event Action<Vector2> PositionChanged;
-	public event Action<int> LivesChanged;
 
-	public PlayerModel(Vector2 position, int lives, float moveSpeed) {
+	public PlayerModel(Vector2 position, float size, float moveSpeed) {
 		Position = position;
-		Lives = lives;
+		Size = size;
 		MoveSpeed = moveSpeed;
 	}
 
@@ -25,13 +20,6 @@ public class PlayerModel {
 		
 		if (PositionChanged != null)
 			PositionChanged(this.Position);
-	}
-
-	public void TakeDamage(int damage) {
-		Lives -= damage;
-
-		if (LivesChanged != null)
-			LivesChanged(Lives);
 	}
 	
 }

@@ -1,7 +1,25 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 
 public class EnemyModel {
-	public Vector2 position;
+	public Vector2 Position { get; private set; }
+	
+	public float Size { get; private set; }
+	public float MoveSpeed { get; private set; }
+	
+	public event Action<Vector2> PositionChanged;
+
+	public EnemyModel(Vector2 position, float size, float moveSpeed) {
+		Position = position;
+		Size = size;
+		MoveSpeed = moveSpeed;
+	}
+
+	public void Move(Vector2 direction) {
+		Position += direction * Time.deltaTime * MoveSpeed;
+		
+		if (PositionChanged != null)
+			PositionChanged(this.Position);
+	}
+	
 }
