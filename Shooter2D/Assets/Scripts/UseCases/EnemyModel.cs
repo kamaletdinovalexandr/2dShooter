@@ -1,15 +1,13 @@
 ﻿using System;
 using UnityEngine;
+using UseCases;
 
-public class PlayerModel {
+public class EnemyModel : IModel{
 	public Vector2 Position { get; private set; }
-	
 	public float Size { get; private set; }
 	public float MoveSpeed { get; private set; }
 	
-	public event Action<Vector2> PositionChanged;
-
-	public PlayerModel(Vector2 position, float size, float moveSpeed) {
+	public EnemyModel(Vector2 position, float size, float moveSpeed) {
 		Position = position;
 		Size = size;
 		MoveSpeed = moveSpeed;
@@ -17,9 +15,6 @@ public class PlayerModel {
 
 	public void Move(Vector2 direction) {
 		Position += direction * Time.deltaTime * MoveSpeed;
-		
-		if (PositionChanged != null)
-			PositionChanged(this.Position);
 	}
 	
 }
