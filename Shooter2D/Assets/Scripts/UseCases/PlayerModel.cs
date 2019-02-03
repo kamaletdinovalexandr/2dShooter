@@ -8,9 +8,10 @@ namespace UseCases {
 		public float Size { get; private set; }
 		public float MoveSpeed { get; private set; }
 		public bool isCollided { get; set; }
+        public ModelType CurrentModelType = ModelType.Player;
 
 		public PlayerModel(Vector2 position, float size, float moveSpeed) {
-			Position = position;
+            Position = position;
 			Size = size;
 			MoveSpeed = moveSpeed;
 		}

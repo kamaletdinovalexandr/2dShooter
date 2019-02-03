@@ -6,5 +6,6 @@ namespace UseCases {
         float Size { get; }
         bool isCollided { get; set; }
         void Move(Vector2 direction);
+  
     }
 }

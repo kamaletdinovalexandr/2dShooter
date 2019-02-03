@@ -5,28 +5,33 @@ using UnityEngine.Experimental.PlayerLoop;
 using UseCases;
 
 public class PlayerPresenter : IPresenter{
-    public IModel _playerModel;
-    public PlayerView _playerView;
+    private IModel PlayerModel;
+    private PlayerView _playerView;
 
     public PlayerPresenter(Vector2 startPosition, PlayerView playerView) {
-        _playerModel = new PlayerModel(startPosition, 1f, 20f );
+        PlayerModel = new PlayerModel(startPosition, 1f, 20f );
         _playerView = playerView;
         UpdateView();
-    }
-
-    public IModel Model {
-        get { return _playerModel; }
-        
+        ColliderInteractor.AddModel(PlayerModel);
     }
     
+    public IModel GetModel() {
+        return PlayerModel;
+    }
+
     public void MoveModel(Vector2 direction) {
-        _playerModel.Move(direction);
+        PlayerModel.Move(direction);
         UpdateView();
     }
 
     public void UpdateView() {
-        _playerView.UpdateView(_playerModel);
+        _playerView.UpdateView(PlayerModel);
     }
-    
-   
+
+    public void DestroyModel() {
+        _playerView.Destroy();
+        ColliderInteractor.RemoveModel(PlayerModel);
+        PlayerModel = null;
+    }
+
 }

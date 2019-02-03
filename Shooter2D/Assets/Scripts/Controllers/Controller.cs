@@ -9,29 +9,33 @@ public class Controller : MonoBehaviour {
 	private IPresenter _playerPresenter;
 	[SerializeField] private EnemyView _enemyView;
 	private IPresenter _enemyPresenter;
+    public ColliderInteractor Interactor;
 	
 	private void Awake() {
 		Init();
 	}
 
 	private void Init() {
-		InitPlayerPresenter();
-		InitEnemyPresenter();
-	}
-
-	private void InitEnemyPresenter() {
-		var enemyStartPosition = _enemyView.transform.position;
-		_enemyPresenter = new EnemyPresenter(enemyStartPosition, _enemyView);
-	}
-
-	private void InitPlayerPresenter() {
-		var playerStartPosition = _playerView.transform.position;
-		_playerPresenter = new PlayerPresenter(playerStartPosition, _playerView);
-	}
+        var playerStartPosition = _playerView.transform.position;
+        _playerPresenter = new PlayerPresenter(playerStartPosition, _playerView);
+        var enemyStartPosition = _enemyView.transform.position;
+        _enemyPresenter = new EnemyPresenter(enemyStartPosition, _enemyView);
+    }
 
 	private void FixedUpdate() {
 		Vector2 direction = new Vector2 (Input.GetAxis ("Horizontal"), Input.GetAxis ("Vertical"));
 		_playerPresenter.MoveModel(direction);
-	}
-	
+        ColliderInteractor.CheckCollide();
+
+        if (_enemyPresenter == null)
+            return;
+
+        _enemyPresenter.UpdateView();
+
+        if (_enemyPresenter.GetModel().isCollided) {
+            _enemyPresenter.DestroyModel();
+            _enemyPresenter = null;
+        }
+        
+    }
 }

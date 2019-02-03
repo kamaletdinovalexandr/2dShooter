@@ -8,11 +8,12 @@ namespace UseCases {
 		public Vector2 Position { get; private set; }
 		public float Size { get; private set; }
 		public float MoveSpeed { get; private set; }
+        public ModelType CurrentModelType = ModelType.Enemy;
 
-		public bool isCollided { get; set; }
+        public bool isCollided { get; set; }
 
 		public EnemyModel(Vector2 position, float size, float moveSpeed) {
-			Position = position;
+            Position = position;
 			Size = size;
 			MoveSpeed = moveSpeed;
 		}
