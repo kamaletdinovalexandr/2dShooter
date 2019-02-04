@@ -36,8 +36,7 @@ public class ColliderInteractor {
                 if (i == j)
                     continue;
 
-                if (IsIntersected(_models[i].Position, _models[i].Size, _models[j].Position, _models[j].Size) 
-                    && IsIntersected(_models[j].Position, _models[j].Size, _models[i].Position, _models[i].Size)) {
+                if (IsIntersected(_models[i].Position, _models[i].Size, _models[j].Position, _models[j].Size)) {
 					_models[i].isCollided = true;
 					_models[j].isCollided = true;
 			    }
@@ -46,14 +45,8 @@ public class ColliderInteractor {
 	}
 
 	private static bool IsIntersected(Vector2 positionA, float sizeA, Vector2 positionB, float sizeB) {
-        var topLeftVector = Vector2.up + Vector2.left;
-        var bottomRightVector = Vector2.down + Vector2.right;
-
-        var aTopLeft = positionA + sizeA / 2 * topLeftVector;
-        var aBottomRight = positionA + sizeA / 2 * bottomRightVector;
-        var bTopLeft = positionB + sizeB / 2 * topLeftVector;
-        var bBottomRight = positionB + sizeB / 2 * bottomRightVector;
-        return aBottomRight.x > bTopLeft.x || aTopLeft.y > bBottomRight.y;
+       return Mathf.Abs(positionA.x - positionB.x) * 2 < (sizeA + sizeB) &&
+              Mathf.Abs(positionA.y - positionB.y) * 2 < (sizeA + sizeB);
                
 	}
 }
