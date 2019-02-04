@@ -33,6 +33,7 @@ public class Controller : MonoBehaviour {
         _enemyPresenter.UpdateView();
 
         if (_enemyPresenter.GetModel().isCollided) {
+            Debug.Log("Enemy is destroyed by colliding");
             _enemyPresenter.DestroyModel();
             _enemyPresenter = null;
         }

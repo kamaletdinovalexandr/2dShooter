@@ -10,6 +10,6 @@ public class PlayerView : MonoBehaviour {
 	}
 
     public void Destroy() {
-        Destroy(this);
+        Destroy(this.gameObject);
     }
 }

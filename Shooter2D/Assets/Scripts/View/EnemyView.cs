@@ -10,6 +10,6 @@ public class EnemyView : MonoBehaviour {
 	}
 
     public void Destroy() {
-        Destroy(this);
+        Destroy(this.gameObject);
     }
 }

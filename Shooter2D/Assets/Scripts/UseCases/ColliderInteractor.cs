@@ -27,8 +27,11 @@ public class ColliderInteractor {
 	public static void CheckCollide() {
         foreach (var model in _models)
             model.isCollided = false;
-        
-		for (int i = 0; i < _models.Count; i++) {
+
+        if (_models.Count < 2)
+            return;
+
+        for (int i = 0; i < _models.Count; i++) {
 			for (int j = 0; j < _models.Count; j++) {
                 if (i == j)
                     continue;
