@@ -46,6 +46,8 @@ public class Controller : MonoBehaviour {
     }
 
     private void OnRestartButtonClick() {
+       ColliderInteractor.ClearModels();
        SceneManager.LoadScene("Main");
+
     }
 }
